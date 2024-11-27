@@ -3,7 +3,7 @@ Contributors: wpecommerce
 Donate link: https://wp-ecommerce.net/
 Tags: subscription, donate, donation, paypal, recurring, payment, donations, paypal donation, button, shortcode, monthly
 Requires at least: 3.0
-Tested up to: 6.6
+Tested up to: 6.7
 Stable tag: 1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
