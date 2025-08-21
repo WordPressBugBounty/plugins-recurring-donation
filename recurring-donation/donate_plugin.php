@@ -4,7 +4,7 @@ Plugin Name: Recurring PayPal Donations
 Plugin URI: https://wp-ecommerce.net/wordpress-recurring-donation-plugin
 Description: Plugin for accepting recurring PayPal donations via a simple shortcode
 Author: wpecommerce
-Version: 1.8
+Version: 1.9
 Author URI: https://wp-ecommerce.net/
 License: GPLv2 or later
 */
@@ -102,11 +102,11 @@ if ( ! function_exists( 'dntplgn_settings_page' ) ) {
 		    <div id="poststuff"><div id="post-body">
 			<?php if ( $message != '' && isset( $_POST['dntplgn_submit'] ) && is_email( $_POST['dntplgn_paypal_account'] ) ) { ?>
 				<div class="updated fade">
-					<p><strong><?php echo $message; ?></strong></p>
+					<p><strong><?php echo esc_attr($message); ?></strong></p>
 				</div>
-			<?php } elseif ( '' != $error_message && ! is_email( $_POST['dntplgn_paypal_account'] ) ) { ?>
+			<?php } elseif ( isset($error_message) ) { ?>
 				<div class="error">
-					<p><strong><?php echo $error_message; ?></strong></p>
+					<p><strong><?php echo esc_attr($error_message); ?></strong></p>
 				</div>
 			<?php } ?>
 
@@ -143,7 +143,7 @@ if ( ! function_exists( 'dntplgn_settings_page' ) ) {
 							<?php _e( 'Your PayPal Account Email Address', 'donateplugin' ); ?>
 						</th>
 						<td class='dnt_account_row'>
-							<input type='text' name='dntplgn_paypal_account' size='70' id='dntplgn_paypal_account' value="<?php if ( '' != $dntplgn_options['dntplgn_paypal_email'] ) echo $dntplgn_options['dntplgn_paypal_email']; ?>" />
+							<input type='text' name='dntplgn_paypal_account' size='70' id='dntplgn_paypal_account' value="<?php if ( '' != $dntplgn_options['dntplgn_paypal_email'] ) echo esc_attr($dntplgn_options['dntplgn_paypal_email']); ?>" />
                                                         <p class="description">The donation will go to this PayPal account.</p>
 							<input type='hidden' id='dnt_tab_paypal' name='dnt_tab_paypal' value='1' />
 						</td>
@@ -196,7 +196,7 @@ if ( ! function_exists( 'dntplgn_settings_page' ) ) {
 							<?php _e( 'Currency Symbol', 'donateplugin' ); ?>
 						</th>
 						<td class='dnt_account_row'>
-							<input type='text' name='dntplgn_currency_symbol' size='10' id='dntplgn_currency_symbol' value="<?php echo $dntplgn_currency_symbol; ?>" />
+							<input type='text' name='dntplgn_currency_symbol' size='10' id='dntplgn_currency_symbol' value="<?php echo esc_attr($dntplgn_currency_symbol); ?>" />
                                                         <p class="description">This symbol is shown next to the recurring amount values. By default it will use the $ symbol if you don't specify a currency symbol.</p>
 						</td>
 					</tr>
@@ -206,7 +206,7 @@ if ( ! function_exists( 'dntplgn_settings_page' ) ) {
 							<?php _e( 'Return URL', 'donateplugin' ); ?>
 						</th>
 						<td class='dnt_account_row'>
-							<input type='text' name='dntplgn_return_url' size='70' id='dntplgn_return_url' value="<?php echo $dntplgn_return_url; ?>" />
+							<input type='text' name='dntplgn_return_url' size='70' id='dntplgn_return_url' value="<?php echo esc_attr($dntplgn_return_url); ?>" />
                                                         <p class="description">PayPal will send the user to this page after the payment.</p>
 						</td>
 					</tr>
@@ -216,7 +216,7 @@ if ( ! function_exists( 'dntplgn_settings_page' ) ) {
 							<?php _e( 'Cancel URL', 'donateplugin' ); ?>
 						</th>
 						<td class='dnt_account_row'>
-							<input type='text' name='dntplgn_cancel_return' size='70' id='dntplgn_cancel_return' value="<?php echo $dntplgn_cancel_return; ?>" />
+							<input type='text' name='dntplgn_cancel_return' size='70' id='dntplgn_cancel_return' value="<?php echo esc_attr($dntplgn_cancel_return); ?>" />
                                                         <p class="description">PayPal will send the user to this page if the user clicks on the cancel link on the PayPal checkout page.</p>
 						</td>
 					</tr>
@@ -226,7 +226,7 @@ if ( ! function_exists( 'dntplgn_settings_page' ) ) {
 							<?php _e( 'Label for Per Month Options', 'donateplugin' ); ?>
 						</th>
 						<td class='dnt_account_row'>
-							<input type='text' name='dntplgn_pm_label' size='30' id='dntplgn_pm_label' value="<?php echo $dntplgn_pm_label; ?>" />
+							<input type='text' name='dntplgn_pm_label' size='30' id='dntplgn_pm_label' value="<?php echo esc_attr($dntplgn_pm_label); ?>" />
                                                         <p class="description">This label is used next to the recurring amount select options. Example: you can use a vlaue of p/m (short for per month). Leave this field empty to hide this label.</p>
 						</td>
 					</tr>
@@ -357,11 +357,11 @@ if ( ! function_exists ( 'dntplgn_show_form' ) ) {
 					<input type="hidden" name="src" value="1">
 					<!-- Donate Amount -->
 					<input id="first_button" type="radio" name="a3" checked="checked" value="<?php echo esc_attr($dntplgn_atts['recurring_amt1']); ?>" />
-					<label for="first_button"> <?php echo $currency_symbol; ?><?php echo esc_attr($dntplgn_atts['recurring_amt1']); ?> <span class="dntplgn_pm_label"><?php echo esc_attr($per_month_label); ?></span></label>
+					<label for="first_button"> <?php echo esc_attr($currency_symbol); ?><?php echo esc_attr($dntplgn_atts['recurring_amt1']); ?> <span class="dntplgn_pm_label"><?php echo esc_attr($per_month_label); ?></span></label>
 					<input id="second_button" type="radio" name="a3" value="<?php echo esc_attr($dntplgn_atts['recurring_amt2']); ?>" />
-					<label for="second_button"> <?php echo $currency_symbol; ?><?php echo esc_attr($dntplgn_atts['recurring_amt2']); ?> <span class="dntplgn_pm_label"><?php echo esc_attr($per_month_label); ?></span></label>
+					<label for="second_button"> <?php echo esc_attr($currency_symbol); ?><?php echo esc_attr($dntplgn_atts['recurring_amt2']); ?> <span class="dntplgn_pm_label"><?php echo esc_attr($per_month_label); ?></span></label>
 					<input id="third_button" type="radio" name="a3" value="<?php echo esc_attr($dntplgn_atts['recurring_amt3']); ?>" />
-					<label for="third_button"> <?php echo $currency_symbol; ?><?php echo esc_attr($dntplgn_atts['recurring_amt3']); ?> <span class="dntplgn_pm_label"><?php echo esc_attr($per_month_label); ?></span></label>
+					<label for="third_button"> <?php echo esc_attr($currency_symbol); ?><?php echo esc_attr($dntplgn_atts['recurring_amt3']); ?> <span class="dntplgn_pm_label"><?php echo esc_attr($per_month_label); ?></span></label>
 					<input id="fourth_button" type="radio" name="a3" value="other" />
 					<label for="fourth_button"> <?php _e( 'Other', 'donateplugin' ); ?> <span class="dntplgn_pm_label"><?php echo esc_attr($per_month_label); ?></span></label></br>
                                         <input class="dntplgn_monthly_other_sum" type="text" name="dntplgn_monthly_other_sum" placeholder="<?php _e( 'Enter Amount', 'donateplugin' ); ?>" />
@@ -411,6 +411,17 @@ if ( ! function_exists ( 'dntplgn_show_form' ) ) {
 }
 
 register_activation_hook( __FILE__, 'dntplgn_register_settings' );
+
+//Add the link to settings menu in plugin's dashboard menu.
+function dntplgn_add_settings_link( $links, $file ) {
+    if ( $file == plugin_basename( __FILE__ ) ) {
+		$settings_link = '<a href="admin.php?page=dntplgn_plugin">' . (__( "Settings", "donateplugin" )) . '</a>';
+		array_unshift( $links, $settings_link );
+    }
+    return $links;
+}
+add_filter( 'plugin_action_links', 'dntplgn_add_settings_link', 10, 2 );
+
 
 add_action( 'init', 'dntplgn_plugin_init' );
 add_action( 'admin_init', 'dntplgn_plugin_init' );

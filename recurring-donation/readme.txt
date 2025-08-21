@@ -2,9 +2,9 @@
 Contributors: wpecommerce 
 Donate link: https://wp-ecommerce.net/
 Tags: subscription, donate, donation, paypal, recurring, payment, donations, paypal donation, button, shortcode, monthly
-Requires at least: 3.0
-Tested up to: 6.7
-Stable tag: 1.8
+Requires at least: 5.0
+Tested up to: 6.8
+Stable tag: 1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,9 @@ Yes, you can specify the paypal email address (where the donation should go to) 
 3. Once Off Donation Option.
 
 == Changelog ==
+
+= 1.9 =
+* Added proper output escaping to admin input fields.
 
 = 1.8 =
 * Added output escaping to the shortcode parameters.
